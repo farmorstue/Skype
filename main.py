@@ -229,7 +229,7 @@ async def gearroll(ctx, message_id: int):
 
     # Send resultat
     if final_list:
-        await ctx.send("🎲 **Gear Roll Resultat:**\n" + "\n".join(final_list))
+        await ctx.send("**Navne til gearroll:**\n" + "\n".join(final_list))
     else:
         await ctx.send("❗ Ingen kvalificerede reaktioner fundet.")
 
