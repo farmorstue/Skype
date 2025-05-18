@@ -181,19 +181,18 @@ async def gearroll(ctx, message_id: int):
         await ctx.send(f"❌ Kunne ikke hente beskeden: {e}")
         return
 
-    # Emoji prioritet: højeste først
+    # Prioritet: først = højeste
     slot_emojis = {
         '3pieces': 4,
         '2pieces': 3,
         '3piece_p4': 2,
-        'leggear': 1  # kræver også vagtsword
+        'leggear': 1  # kræver vagtsword
     }
 
-    # Brugers reaktioner
     user_to_emojis = {}
     vagtsword_users = set()
 
-    # Saml hvem der har reageret med hvad
+    # Hent reaktioner
     for reaction in message.reactions:
         emoji = reaction.emoji
         emoji_key = None
@@ -203,25 +202,36 @@ async def gearroll(ctx, message_id: int):
                 emoji_key = key
                 break
 
-        if not emoji_key:
-            continue
+        if emoji_key:
+            async for user in reaction.users():
+                if user.bot:
+                    continue
 
-        async for user in reaction.users():
-            if user.bot:
-                continue
-
-            if emoji_key == "vagtsword":
-                vagtsword_users.add(user)
-            else:
-                if user not in user_to_emojis:
-                    user_to_emojis[user] = set()
-                user_to_emojis[user].add(emoji_key)
+                if emoji_key == "vagtsword":
+                    vagtsword_users.add(user)
+                else:
+                    if user not in user_to_emojis:
+                        user_to_emojis[user] = set()
+                    user_to_emojis[user].add(emoji_key)
 
     # Beregn højeste slot for hver bruger
     final_list = []
 
     for user, emojis in user_to_emojis.items():
-        for key in slot_emojis:  #_
+        for key in slot_emojis:  # prioriteret rækkefølge
+            if key == "leggear":
+                if "leggear" in emojis and user in vagtsword_users:
+                    final_list.extend([user.display_name] * slot_emojis[key])
+                    break
+            elif key in emojis:
+                final_list.extend([user.display_name] * slot_emojis[key])
+                break
+
+    # Send resultat
+    if final_list:
+        await ctx.send("🎲 **Gear Roll Resultat:**\n" + "\n".join(final_list))
+    else:
+        await ctx.send("❗ Ingen kvalificerede reaktioner fundet.")
 
 # Start botten
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
