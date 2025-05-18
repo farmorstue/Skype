@@ -1,23 +1,24 @@
-Skype Discord Bot
+# 🔧 Skype Discord Bot
 
-## Kommandoer
-- `!geara`
-- `!gearb`
-- `!gearc`
-- `!react`
-- `!gearroll`
+En avanceret Discord-bot til gear-reaktioner, opkaldslogning og stemmestyring.
 
-## Kommandoer  
-- Logs over calls
-- Logs på reaktioner
+---
 
-## Kørsel
-Startes automatisk med systemd (skype.service)
+## 🚀 Funktioner
 
-## Installation
+- `!geara`, `!gearb`, `!gearc` → Reaktionsmenuer med emojis
+- `!react <besked-id>` → Tjek hvem der **ikke** har reageret
+- `!gearroll <besked-id>` → Fordeler navneslots ud fra reaktion
+- Logger:
+  - Hvem der deltager i calls
+  - Hvem der reagerer / fjerner reaktioner
+  - Genstarter automatisk
+
+---
+
+## 🛠 Installation
+
+### 1. Klon projektet
 ```bash
 git clone https://github.com/farmorstue/Skype.git
 cd Skype
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
