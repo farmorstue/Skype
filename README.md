@@ -1,19 +1,22 @@
-# Skype Discord Bot
-
-En speciallavet Discord-bot med reaktionsstyring, gear-kategorier og systemd-support.
+Skype Discord Bot
 
 ## Kommandoer
+- `!geara`
+- `!gearb`
+- `!gearc`
+- `!react`
+- `!gearroll`
 
-- `!ping` – Test kommando
+## Kommandoer  
+- Logs over calls
+- Logs på reaktioner
 
 ## Kørsel
-
 Startes automatisk med systemd (skype.service)
 
 ## Installation
-
 ```bash
-git clone https://github.com/din-bruger/Skype.git
+git clone https://github.com/farmorstue/Skype.git
 cd Skype
 python3 -m venv venv
 source venv/bin/activate
