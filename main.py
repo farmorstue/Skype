@@ -221,10 +221,10 @@ async def gearroll(ctx, message_id: int):
         for key in slot_emojis:  # prioriteret rækkefølge
             if key == "leggear":
                 if "leggear" in emojis and user in vagtsword_users:
-                    final_list.extend([f"```{user.display_name}```"] * slot_emojis[key])
+                    final_list.extend([f"``{user.display_name}``"] * slot_emojis[key])
                     break
             elif key in emojis:
-                final_list.extend([f"```{user.display_name}```"] * slot_emojis[key])
+                final_list.extend([f"``{user.display_name}``"] * slot_emojis[key])
                 break
 
     # Send resultat
