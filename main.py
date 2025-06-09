@@ -233,5 +233,19 @@ async def gearroll(ctx, message_id: int):
     else:
         await ctx.send("❗ Ingen kvalificerede reaktioner fundet.")
 
+@bot.command()
+async def ban(ctx, member: discord.Member):
+    if ctx.author.id != 256433642761486339:
+        await ctx.send("❌ Du har ikke adgang til at bruge denne kommando.")
+        return
+
+    try:
+        await member.ban()
+        await ctx.send(f"✅ {member.display_name} er blevet bannet.")
+    except discord.Forbidden:
+        await ctx.send("❌ Jeg har ikke tilladelse til at banne denne bruger.")
+    except discord.HTTPException:
+        await ctx.send("❌ Noget gik galt under banningen.")
+
 # Start botten
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
